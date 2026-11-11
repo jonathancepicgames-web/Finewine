@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080d18">
+  <title>Arcade Hub — Render Remote PC</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="glow glow-a"></div><div class="glow glow-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="brand-icon">A</span><span><b>ARCADE HUB</b><small>RENDER REMOTE PLAY</small></span></a>
+    <nav><button class="tab active" data-view="library">Game library</button><button class="tab" data-view="shared">Shared files <span id="navCount" class="count">0</span></button><button class="tab" data-view="player">Remote screen</button></nav>
+    <div class="status"><i></i><span id="serviceStatus">Connecting</span></div>
+  </header>
+
+  <main id="top" class="container">
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="kicker">YOUR GROUP'S CLOUD ARCADE</div>
+        <h1>Windows games.<br><em>Run on Render.</em></h1>
+        <p>The game process runs on the Render server. Your Chromebook, Quest 3S, phone, or computer only receives the remote screen and sends controls.</p>
+        <div class="hero-actions"><button class="btn primary" data-go="shared">＋ Upload a game</button><button class="btn ghost" data-go="player">Open remote screen ↗</button></div>
+        <div class="hero-note"><span>SERVER-SIDE WINE</span><span>·</span><span>SHARED SESSION</span><span>·</span><span>NO LOCAL WINDOWS EMULATOR</span></div>
+      </div>
+      <div class="hero-visual" aria-hidden="true"><div class="ring ring-1"></div><div class="ring ring-2"></div><div class="monitor"><div class="monitor-top"><b></b><b></b><b></b><span>RENDER / SESSION 01</span></div><div class="monitor-screen"><div class="pixel">▣</div><strong>REMOTE<br>PLAYER</strong><small>SERVER READY</small></div><div class="monitor-stand"></div></div></div>
+    </section>
+
+    <section class="stats">
+      <div><small>RUNTIME</small><b>Render server</b></div><div><small>GAME PROCESSING</small><b>Server-side</b></div><div><small>CLIENT DEVICE</small><b>Screen + controls</b></div><div><small>HOSTING</small><b>Free-tier mode</b></div>
+    </section>
+
+    <section id="view-library" class="view active">
+      <div class="section-head"><div><div class="kicker">BUILT-IN RUNTIME</div><h2>Game library <span>& tools</span></h2><p>Three server-side runtimes are pre-installed. Choose the one that matches the game; all game processing stays on Render.</p></div><span class="tag">PRE-INSTALLED</span></div>
+      <div class="runtime-grid">
+        <article class="runtime-card featured"><div class="card-label"><span class="pill good">SERVER-SIDE</span><span class="glyph">▣</span></div><small>WINDOWS COMPATIBILITY</small><h3>Wine <span>32-bit + 64-bit</span></h3><p>Wine and its 32-bit libraries run on the Render Linux server. A virtual desktop is streamed to every connected browser.</p><div class="chips"><span>Win32</span><span>Win64</span><span>ZIP extraction</span><span>Software graphics</span></div><div class="card-foot"><span>Older 2D apps recommended</span><span>↗</span></div></article>
+        <article class="runtime-card"><div class="card-label"><span class="pill blue">BUILT-IN DEMO</span><span class="glyph">▤</span></div><small>PRE-INSTALLED WINDOWS APP</small><h3>Wine <span>Notepad</span></h3><p>A small test program included with Wine. Launch it to check whether the Windows compatibility layer and remote stream work.</p><div class="chips"><span>Win32 + Win64</span><span>Windows EXE / MSI</span></div><button class="btn primary wide" id="runDemo">Launch Notepad on Render →</button></article>
+        <article class="runtime-card"><div class="card-label"><span class="pill good">PRE-INSTALLED</span><span class="glyph">▱</span></div><small>DOS GAME EMULATOR</small><h3>DOSBox <span>0.74</span></h3><p>For classic DOS games and software. Uploaded DOS folders can be mounted as drive C: and launched in the remote desktop.</p><div class="chips"><span>DOS / 16-bit</span><span>Classic games</span></div><button class="btn outline wide" id="runDosboxDemo">Open DOSBox prompt →</button></article>
+        <article class="runtime-card"><div class="card-label"><span class="pill good">PRE-INSTALLED</span><span class="glyph">▧</span></div><small>ADVENTURE GAME ENGINE</small><h3>ScummVM <span>2.7</span></h3><p>Supports many classic point-and-click adventures. Open its launcher, choose Add Game, and browse to the uploaded folder in the remote desktop.</p><div class="chips"><span>Adventure games</span><span>Game data required</span></div><button class="btn outline wide" id="runScummvmDemo">Open ScummVM →</button></article>
+      </div>
+
+      <section class="recent-panel"><div class="recent-head"><div><div class="kicker">PRIVATE TO THIS BROWSER</div><h3>Recently played</h3><p>Your last 12 launches and selected emulator are remembered in a small cookie, not in a database.</p></div><button id="clearRecent" class="text-button" disabled>Clear history</button></div><div id="recentList" class="recent-list"><div class="empty">Loading history…</div></div></section>
+
+      <div class="notice"><b>Important performance note</b><p>Render Free has only 0.1 CPU and 512 MB RAM. This server-side setup is a compatibility test for light, older games—not a replacement for a gaming PC. There is no hardware GPU; demanding 3D games may be very slow or fail to start.</p></div>
+    </section>
+
+    <section id="view-shared" class="view">
+      <div class="section-head"><div><div class="kicker">COMMUNITY FILE SHELF</div><h2>Shared <span>game files</span></h2><p>Upload ZIP archives, EXEs, DLLs, installers, game folders, DOS game data, or any other file type. No shared key is required: anyone with this URL can upload, delete, launch, stop, and control the shared desktop.</p></div><span class="tag">VISIBLE TO EVERYONE</span></div>
+      <div class="shared-grid">
+        <section class="panel upload-panel">
+          <div class="panel-title"><span class="panel-icon">↑</span><div><h3>Add game files</h3><small>FILES ARE STORED ON RENDER WHILE AWAKE</small></div></div>
+          <label class="dropzone" id="dropzone" for="uploadInput"><span class="upload-symbol">⇧</span><b>Drop files here</b><span>or <u>browse files</u></span><small>Any file type · Multi-select supported · <span id="uploadLimit">100</span> MB per file</small></label>
+          <input id="uploadInput" type="file" multiple hidden>
+          <input id="folderUploadInput" type="file" webkitdirectory directory multiple hidden>
+          <button class="btn outline wide" id="uploadFolderButton">Choose a whole game folder</button>
+          <label class="field-label" for="uploaderName">YOUR DISPLAY NAME <small>OPTIONAL</small></label><input id="uploaderName" class="field" maxlength="40" placeholder="e.g. Alex">
+          <div class="public-access"><strong>OPEN COMMUNITY ACCESS</strong><span>No password or shared key. Anyone with the app link can manage the shared library and remote session.</span></div>
+          <button class="btn primary wide" id="uploadButton">Upload selected files</button>
+          <div id="uploadMessage" class="message" role="status">Files are grouped together when uploaded in one selection.</div>
+        </section>
+        <section class="panel files-panel">
+          <div class="files-head"><div><h3>Shared library</h3><p><span id="listCount">0 files</span> · same shelf for everyone</p></div><button class="refresh" id="refreshButton" aria-label="Refresh">↻</button></div>
+          <div id="fileList" class="file-list"><div class="empty">No shared files yet. Upload a game folder or ZIP.</div></div>
+          <div class="warning"><b>Public access + temporary storage</b><p>Anyone with this URL can upload, delete, launch, or stop games and control the shared desktop. Do not upload private files or software you do not trust. Render Free storage is temporary; uploads disappear after spin-down, restart, or redeploy.</p></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-player" class="view">
+      <div class="section-head"><div><div class="kicker">LIVE REMOTE SESSION</div><h2>Remote <span>screen</span></h2><p>Everyone who opens this page connects to the same Render desktop. You all see the same game and can send keyboard or mouse controls.</p></div><span class="tag" id="sessionTag">NO ACTIVE GAME</span></div>
+      <div class="player-toolbar"><div><i class="live-dot"></i><span id="playerStatus">No game started yet.</span></div><div class="toolbar-actions"><button id="connectButton" class="btn outline">Connect / refresh screen</button><button id="stopButton" class="btn danger">Stop game</button></div></div>
+      <div class="remote-wrap"><div id="remotePlaceholder" class="remote-placeholder"><div class="remote-icon">▣</div><h3>Render desktop</h3><p>Launch a game from the shared library or run the built-in Notepad test. Then connect here.</p><button class="btn primary" data-go="library">Browse game library</button></div><iframe id="remoteFrame" title="Render server remote desktop" allow="clipboard-read; clipboard-write; fullscreen" allowfullscreen hidden></iframe></div>
+      <div class="remote-tips"><b>Controls:</b> Click inside the remote screen to focus it. Use the noVNC toolbar to open the on-screen keyboard or switch to fullscreen. On Quest, use the browser pointer/touch controls or a paired keyboard/gamepad; actual gamepad mapping depends on the game.</div>
+      <div class="notice"><b>One shared session</b><p>This free-tier build runs one game desktop. If another person launches a different game, it replaces the current game for everyone connected.</p></div>
+    </section>
+
+    <footer class="footer"><span>ARCADE HUB <i>· SERVER BUILD 3.2 PUBLIC</i></span><span>Wine, DOSBox, and ScummVM run on Render. Browsers only stream the display.</span></footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

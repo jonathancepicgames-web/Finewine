@@ -1,0 +1,12 @@
+{
+  "name": "arcade-hub-render-server",
+  "version": "3.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Server-side Wine, DOSBox, and ScummVM game launcher with public shared uploads and noVNC streaming for Render.",
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs && node --check public/app.js"
+  },
+  "engines": { "node": ">=22" }
+}

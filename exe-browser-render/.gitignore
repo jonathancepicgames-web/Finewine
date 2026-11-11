@@ -1,0 +1,4 @@
+node_modules/
+engine/
+data/
+*.log

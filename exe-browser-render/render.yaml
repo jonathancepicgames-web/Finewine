@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: arcade-hub-server
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    maxShutdownDelaySeconds: 30
+    envVars:
+      - key: DATA_DIR
+        value: /tmp/arcade-hub-data
+      - key: MAX_UPLOAD_MB
+        value: 100
+      - key: MAX_LIBRARY_MB
+        value: 400
+      - key: MAX_LIBRARY_ITEMS
+        value: 80
+      - key: GAME_SCREEN
+        value: 1024x768x24
